@@ -1,4 +1,4 @@
-package com.example.hrchart.view
+package com.example.hrchart.login.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle

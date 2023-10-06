@@ -1,8 +1,9 @@
-package com.example.hrchart
+package com.example.hrchart.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.hrchart.view.LoginFragment
+import com.example.hrchart.R
+import com.example.hrchart.login.view.LoginFragment
 
 class LoginActivity : AppCompatActivity() {
 
