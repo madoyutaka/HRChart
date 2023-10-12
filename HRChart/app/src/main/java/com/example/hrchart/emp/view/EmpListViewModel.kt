@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import com.example.hrchart.common.Event
 import com.example.hrchart.emp.data.EmpData
 
 /**
@@ -44,6 +45,9 @@ class EmpListViewModel(application: Application) : AndroidViewModel(application)
         this.navController = navController
     }
 
+    private var onSearch = MutableLiveData<Event<Boolean>>()
+    fun getSearch(): MutableLiveData<Event<Boolean>> { return onSearch }
+
     /**
      * init
      */
@@ -65,7 +69,14 @@ class EmpListViewModel(application: Application) : AndroidViewModel(application)
         val list = arrayListOf(
             EmpData(1, "山田 太郎", "22", "開発エンジニア", "東京", "在職"),
             EmpData(2, "鈴木 一郎", "46", "営業", "大阪", "退職"),
-            EmpData(3, "佐藤 二郎", "51", "開発エンジニア", "宮城", "休職")
+            EmpData(3, "佐藤 二郎", "51", "開発エンジニア", "宮城", "休職"),
+            EmpData(4, "test01", "26", "ネットワーク", "東京", "在職"),
+            EmpData(5, "test02", "32", "開発エンジニア", "東京", "在職"),
+            EmpData(6, "test03", "38", "開発エンジニア", "福岡", "在職"),
+            EmpData(7, "test04", "44", "営業", "東京", "在職"),
+            EmpData(8, "test05", "24", "開発エンジニア", "東京", "在職"),
+            EmpData(9, "test06", "48", "管理", "東京", "在職"),
+            EmpData(10, "test07", "52", "開発エンジニア", "愛知", "在職")
         )
         empData.postValue(list)
     }
@@ -80,6 +91,10 @@ class EmpListViewModel(application: Application) : AndroidViewModel(application)
         this.id = id
         val action = EmpListFragmentDirections.actionEmpListToEmpInfo(id)
         navController.navigate(action)
+    }
+
+    fun onClickSearchButton() {
+        onSearch.postValue(Event(true))
     }
 
 }

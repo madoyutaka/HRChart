@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hrchart.R
+import com.example.hrchart.common.EventObserver
 import com.example.hrchart.databinding.FragmentEmpListBinding
 import com.example.hrchart.emp.widget.EmpListAdapter
 
@@ -84,6 +85,15 @@ class EmpListFragment : Fragment() {
             // リストの境界線
             val itemDecoration = DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL)
             binding.recyclerView.addItemDecoration(itemDecoration)
+        })
+
+        // 検索ボタンのobserve処理
+        viewModel.getSearch().observe(viewLifecycleOwner, EventObserver {
+            Log.d(TAG, "getSearch")
+            if (it) {
+                val empSearchFragment = EmpSearchFragment()
+                empSearchFragment.show(childFragmentManager, "EmpSearchFragment")
+            }
         })
     }
 
