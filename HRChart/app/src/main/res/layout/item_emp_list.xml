@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/emp_list_vertical_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <!-- 名前 -->
+        <TextView
+            style="@style/Medium24"
+            android:id="@+id/emp_list_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- ステータス（背景色はadapter側で動的に設定） -->
+        <TextView
+            style="@style/WhiteText"
+            android:id="@+id/emp_list_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:paddingHorizontal="@dimen/padding_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- エリア -->
+        <TextView
+            style="@style/Medium24"
+            android:id="@+id/emp_list_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emp_list_name"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- 年齢 -->
+        <TextView
+            style="@style/Medium24"
+            android:id="@+id/emp_list_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_16"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/emp_list_vertical_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/emp_list_name"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- 職種 -->
+        <TextView
+            style="@style/Medium24"
+            android:id="@+id/emp_list_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_16"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emp_list_status"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

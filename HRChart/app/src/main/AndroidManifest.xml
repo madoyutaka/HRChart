@@ -12,8 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HRChart"
         tools:targetApi="31">
+<!--        <activity-->
+<!--            android:name=".emp.EmpActivity"-->
+<!--            android:exported="false" />-->
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".emp.EmpActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_emp"
+    app:startDestination="@id/emp_list_fragment">
+
+    <fragment
+        android:id="@+id/emp_list_fragment"
+        android:name="com.example.hrchart.emp.view.EmpListFragment"
+        android:label="EmpListFragment"
+        tools:layout="@layout/fragment_emp_list">
+        <action
+            android:id="@+id/action_emp_list_to_emp_info"
+            app:destination="@id/emp_info_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/emp_info_fragment"
+        android:name="com.example.hrchart.emp.view.EmpInfoFragment"
+        android:label="EmpInfoFragment"
+        tools:layout="@layout/fragment_emp_info">
+        <action
+            android:id="@+id/action_emp_info_to_emp_list"
+            app:destination="@id/emp_list_fragment" />
+        <argument
+            android:name="arg"
+            app:argType="integer" />
+    </fragment>
+
+
+</navigation>

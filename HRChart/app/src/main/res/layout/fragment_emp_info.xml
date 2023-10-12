@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.hrchart.emp.view.EmpInfoViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".emp.view.EmpInfoFragment">
+
+        <ScrollView
+            android:id="@+id/emp_info_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/emp_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16">
+
+                <!-- 名前 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_emp_name_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_name}"
+                    app:setSecondRowText="@{viewModel.empInfo.empName}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <!-- フリガナ -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_phonetic_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_phonetic}"
+                    app:setSecondRowText="@{viewModel.empInfo.phonetic}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_emp_name_table"
+                    />
+
+                <!-- 生年月日 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_birth_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_birth}"
+                    app:setSecondRowText="@{viewModel.empInfo.birth}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_phonetic_table"
+                    />
+
+                <!-- 性別 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_gender_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_gender}"
+                    app:setSecondRowText="@{viewModel.empInfo.gender}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_birth_table"
+                    />
+
+                <!-- 年齢 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_age_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_age}"
+                    app:setSecondRowText="@{viewModel.empInfo.age}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_gender_table"
+                    />
+
+                <!-- 媒体 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_media_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_media}"
+                    app:setSecondRowText="@{viewModel.empInfo.media}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_age_table"
+                    />
+
+                <!-- 職種 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_job_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_job}"
+                    app:setSecondRowText="@{viewModel.empInfo.job}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_media_table"
+                    />
+
+                <!-- エリア -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_area_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_area}"
+                    app:setSecondRowText="@{viewModel.empInfo.area}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_job_table"
+                    />
+
+                <!-- ステータス -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_status_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_status}"
+                    app:setSecondRowText="@{viewModel.empInfo.status}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_area_table"
+                    />
+
+                <!-- スキル -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_skill_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_skill}"
+                    app:setSecondRowText="@{viewModel.empInfo.skill}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_status_table"
+                    />
+
+                <!-- ソリューション -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_solution_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_solution}"
+                    app:setSecondRowText="@{viewModel.empInfo.solution}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_skill_table"
+                    />
+
+                <!-- 雇用形態 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_emp_status_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_emp_status}"
+                    app:setSecondRowText="@{viewModel.empInfo.empStatus}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_solution_table"
+                    />
+
+                <!-- 備考欄 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_remarks_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_remarks}"
+                    app:setSecondRowText="@{viewModel.empInfo.remarks}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_emp_status_table"
+                    />
+
+                <!-- 会社用携帯 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_office_phone_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_office_phone}"
+                    app:setSecondRowText="@{viewModel.empInfo.officePhone}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_remarks_table"
+                    />
+
+                <!-- 会社用メール -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_office_mail_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_office_mail}"
+                    app:setSecondRowText="@{viewModel.empInfo.officeMail}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_office_phone_table"
+                    />
+
+                <!-- 個人用携帯 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_private_phone_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_private_phone}"
+                    app:setSecondRowText="@{viewModel.empInfo.privatePhone}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_office_mail_table"
+                    />
+
+                <!-- 個人用メール -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_private_mail_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_private_mail}"
+                    app:setSecondRowText="@{viewModel.empInfo.privateMail}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_private_phone_table"
+                    />
+
+                <!-- 面接担当者1 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_pic1_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_pic1}"
+                    app:setSecondRowText="@{viewModel.empInfo.pic1}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_private_mail_table"
+                    />
+
+                <!-- 面接担当者2 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_pic2_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_pic2}"
+                    app:setSecondRowText="@{viewModel.empInfo.pic2}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_pic1_table"
+                    />
+
+                <!-- 応募日 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_application_date_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_application_date}"
+                    app:setSecondRowText="@{viewModel.empInfo.applicationDate}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_pic2_table"
+                    />
+
+                <!-- 面談日 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_interview_date_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_interview_date}"
+                    app:setSecondRowText="@{viewModel.empInfo.interviewDate}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_application_date_table"
+                    />
+
+                <!-- 入社日 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_joined_date_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_joined_date}"
+                    app:setSecondRowText="@{viewModel.empInfo.joinedDate}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_interview_date_table"
+                    />
+
+                <!-- 退社日 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_retirement_date_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_retirement_date}"
+                    app:setSecondRowText="@{viewModel.empInfo.retirementDate}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_joined_date_table"
+                    />
+
+                <!-- 内定承諾日 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_accepted_date_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_accepted_date}"
+                    app:setSecondRowText="@{viewModel.empInfo.acceptedDate}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_retirement_date_table"
+                    />
+
+                <!-- 決定月 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_decision_month_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_decision_month}"
+                    app:setSecondRowText="@{viewModel.empInfo.decisionMonth}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_accepted_date_table"
+                    />
+
+                <!-- 応募区分 -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_div_application_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setFirstRowText="@{@string/emp_div_application}"
+                    app:setSecondRowText="@{viewModel.empInfo.divApplication}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_decision_month_table"
+                    />
+
+                <!-- ランク -->
+                <com.example.hrchart.common.view.TableLayoutTwoLines
+                    android:id="@+id/emp_info_rank_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_16"
+                    app:setFirstRowText="@{@string/emp_rank}"
+                    app:setSecondRowText="@{viewModel.empInfo.rank}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emp_info_div_application_table"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

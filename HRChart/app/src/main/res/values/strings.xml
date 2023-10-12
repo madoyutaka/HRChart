@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">HRChart</string>
+
+    <!--  従業員情報関連  -->
+    <string name="emp_name">名前</string>
+    <string name="emp_phonetic">フリガナ</string>
+    <string name="emp_birth">生年月日</string>
+    <string name="emp_gender">性別</string>
+    <string name="emp_age">年齢</string>
+    <string name="emp_media">媒体</string>
+    <string name="emp_job">職種</string>
+    <string name="emp_area">エリア</string>
+    <string name="emp_status">ステータス</string>
+    <string name="emp_skill">スキル</string>
+    <string name="emp_solution">ソリューション</string>
+    <string name="emp_emp_status">雇用形態</string>
+    <string name="emp_remarks">備考欄</string>
+    <string name="emp_office_phone">会社用携帯</string>
+    <string name="emp_office_mail">会社用メール</string>
+    <string name="emp_private_phone">個人用携帯</string>
+    <string name="emp_private_mail">個人用メール</string>
+    <string name="emp_pic1">面談担当者1</string>
+    <string name="emp_pic2">面談担当者2</string>
+    <string name="emp_application_date">応募日</string>
+    <string name="emp_interview_date">面談日</string>
+    <string name="emp_joined_date">入社日</string>
+    <string name="emp_retirement_date">退社日</string>
+    <string name="emp_accepted_date">内定承諾日</string>
+    <string name="emp_decision_month">決定月</string>
+    <string name="emp_div_application">応募区分</string>
+    <string name="emp_rank">ランク</string>
+    <string name="enrollment">在職</string>
+    <string name="retirement">退職</string>
+
+
 </resources>
