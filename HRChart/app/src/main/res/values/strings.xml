@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">HRChart</string>
+    <string name="hr_chat_title">人事カルテシステム</string>
+    <string name="login_btn">ログイン</string>
+    <string name="password">パスワード</string>
 </resources>
