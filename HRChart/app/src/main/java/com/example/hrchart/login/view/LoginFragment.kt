@@ -82,7 +82,9 @@ class LoginFragment : Fragment() {
                 }
                 //それ以外(パスワード不一致など)
                 else -> {
-                    //実装予定
+                    //パスワード入力欄を空にして、エラーメッセージを表示
+                    binding.editTextPassword.text = null
+                    binding.loginErrorText.visibility = View.VISIBLE
                     binding.loginErrorText.text = "パスワードが異なります。再入力してください。"
                 }
             }

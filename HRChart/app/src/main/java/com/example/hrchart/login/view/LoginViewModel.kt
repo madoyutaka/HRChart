@@ -1,6 +1,7 @@
 package com.example.hrchart.login.view
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -48,11 +49,6 @@ class LoginViewModel : ViewModel() {
     //ログインボタン押下時
     fun onLoginClicked(inputPassword: String): String {
         Log.d(TAG, "onLoginClicked")
-
-        // テストデータ用のパスワード
-        val userPassword = "gwuser"
-        val adminPassword = "adminuser"
-
         return passwordVerify(inputPassword)
     }
 
