@@ -16,6 +16,7 @@ import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.hrchart.R
+import com.example.hrchart.common.InputFilters
 import com.example.hrchart.databinding.FragmentEmpSearchBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -52,11 +53,21 @@ class EmpSearchFragment : BottomSheetDialogFragment() {
         // クリアボタン
         binding.empSearchClearButton.setOnClickListener {
             binding.empSearchNameEt.text.clear()
-            binding.empSearchStatusDropdownItem.text.clear()
-            binding.empSearchAreaDropdownItem.text.clear()
-            binding.empSearchJobDropdownItem.text.clear()
 
+            // ドロップダウン初期化
+            val statusDropdown : AutoCompleteTextView = binding.empSearchStatusDropdownItem
+            val areasDropdown : AutoCompleteTextView = binding.empSearchAreaDropdownItem
+            val jobsDropdown : AutoCompleteTextView = binding.empSearchJobDropdownItem
+            statusDropdown.setText(R.string.all)
+            areasDropdown.setText(R.string.all)
+            jobsDropdown.setText(R.string.all)
+            initDropdown(statusDropdown, areasDropdown, jobsDropdown)
+
+            // フォーカスクリア
             binding.empSearchNameEt.clearFocus()
+            statusDropdown.clearFocus()
+            areasDropdown.clearFocus()
+            jobsDropdown.clearFocus()
         }
 
         // キャンセルボタン
@@ -178,11 +189,16 @@ class EmpSearchFragment : BottomSheetDialogFragment() {
      */
     private fun keyBoardCtrl(et: EditText) {
         Log.d(TAG, "keyBoardCtrl")
+
+        // InputFilterを設定
+        val kanaFilter = InputFilters.getKanaFilter()
+        et.filters = arrayOf(kanaFilter)
+
         // ソフトキーボードのDone押下時処理
         et.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                // フォーカスアウト
-                binding.empSearchNameEt.clearFocus()
+                // フォーカスクリア
+                et.clearFocus()
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
