@@ -1,7 +1,7 @@
 package com.example.hrchart.login.view
 
 import android.util.Log
-import android.view.View
+import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -49,7 +49,15 @@ class LoginViewModel : ViewModel() {
     //ログインボタン押下時
     fun onLoginClicked(inputPassword: String): String {
         Log.d(TAG, "onLoginClicked")
-        return passwordVerify(inputPassword)
+        //パスワードの正規表現
+        val regex = Regex(pattern = "[a-z0-9!@;:]{6,}")
+        val isMatched = regex.containsMatchIn(inputPassword)
+        return if (!isMatched) {
+            "noMatch"
+        } else {
+            passwordVerify(inputPassword)
+        }
+
     }
 
     //パスワード確認

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.hrchart.login.view.LoginViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,6 +35,7 @@
             android:autofillHints="@string/password"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,21 +49,17 @@
             android:layout_marginTop="15dp"
             android:enabled="@{viewModel.isEnabled}"
             android:text="@{viewModel.buttonText}"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#00a1e9"
+            android:topRightRadius="20dp"
+            android:bottomRightRadius="20dp"
+            android:bottomLeftRadius="20dp"
+            android:topLeftRadius="20dp"
             app:layout_constraintEnd_toEndOf="@+id/edit_text_password"
             app:layout_constraintStart_toStartOf="@+id/edit_text_password"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_password"
             tools:text="@string/login_btn" />
 
-        <TextView
-            android:id="@+id/login_error_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:visibility="gone"
-            android:text=""
-            app:layout_constraintEnd_toEndOf="@+id/login_button"
-            app:layout_constraintStart_toStartOf="@+id/login_button"
-            app:layout_constraintTop_toBottomOf="@+id/login_button" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

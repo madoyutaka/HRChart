@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import com.example.hrchart.R
 import com.example.hrchart.databinding.FragmentLoginBinding
+import com.example.hrchart.dialog.SimpleAlertDialogFragment
 
 class LoginFragment : Fragment() {
 
@@ -82,10 +83,13 @@ class LoginFragment : Fragment() {
                 }
                 //それ以外(パスワード不一致など)
                 else -> {
-                    //パスワード入力欄を空にして、エラーメッセージを表示
+                    //パスワード入力欄を空にして、エラーダイアログを表示
                     binding.editTextPassword.text = null
-                    binding.loginErrorText.visibility = View.VISIBLE
-                    binding.loginErrorText.text = "パスワードが異なります。再入力してください。"
+                    //ダイアログ表示処理
+                    val dialog =  SimpleAlertDialogFragment("ログイン失敗", "パスワードが異なります。再入力してください。") {
+                        // OK時の処理
+                    }
+                    dialog.show(requireActivity().supportFragmentManager, "dlg_msg")
                 }
             }
         }
