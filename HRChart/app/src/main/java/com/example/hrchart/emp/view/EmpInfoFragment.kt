@@ -49,7 +49,7 @@ class EmpInfoFragment : Fragment() {
         val args: EmpInfoFragmentArgs by navArgs()
 
         // 受け取った値をViewModelに渡す
-        viewModel.showInfo(args.arg)
+        viewModel.showInfo(args.id)
 
         Log.d(TAG, "onCreateView End")
         return binding.root

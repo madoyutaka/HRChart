@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -34,20 +34,22 @@
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginStart="@dimen/margin_16"
             android:paddingHorizontal="@dimen/padding_16"
-            android:paddingVertical="4dp"
+            android:paddingVertical="@dimen/padding_4"
             app:layout_constraintStart_toEndOf="@+id/emp_list_vertical_guideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- 面談メモ -->
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            android:text="面談"
-            android:textSize="@dimen/text_size_20"
+            android:padding="0dp"
+            android:src="@drawable/ic_interview_button"
+            android:backgroundTint="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <!-- エリア -->
         <TextView
@@ -58,7 +60,7 @@
             android:layout_marginVertical="@dimen/margin_16"
             android:layout_marginStart="@dimen/margin_16"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emp_list_name"
+            app:layout_constraintTop_toBottomOf="@+id/emp_list_status"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <!-- 年齢 -->
@@ -68,9 +70,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/margin_16"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/margin_16"
             app:layout_constraintEnd_toStartOf="@+id/emp_list_vertical_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/emp_list_name"
+            app:layout_constraintTop_toBottomOf="@+id/emp_list_status"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <!-- 職種 -->
@@ -80,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/margin_16"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/margin_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emp_list_status"
             app:layout_constraintBottom_toBottomOf="parent"/>
