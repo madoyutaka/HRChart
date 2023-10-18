@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -140,6 +139,27 @@ class EmpListFragment : Fragment() {
             Log.d(TAG, "getOnSearchArray")
             // 検索条件をViewModelに渡す
             viewModel.runSearch(it[0], it[1], it[2], it[3])
+        })
+
+        // 検索結果0件ダイアログの表示
+        viewModel.getShowErrorSearchFilter().observe(viewLifecycleOwner, EventObserver {
+            Log.d(TAG, "getShowErrorSearchFilter")
+            if (it) {
+                // 検索結果が見つからないダイアログを表示する
+                val errorSearchFilterDialogFragment = ErrorSearchFilterDialogFragment()
+                errorSearchFilterDialogFragment.show(parentFragmentManager, "ErrorSearchFilterDialogFragment")
+            }
+        })
+
+        // 検索結果0件ダイアログのOKボタンobserve処理
+        val errorSearchFilterDialogViewModel: ErrorSearchFilterDialogViewModel by activityViewModels()
+        errorSearchFilterDialogViewModel.getOnClickOk().observe(viewLifecycleOwner, EventObserver {
+            Log.d(TAG, "getOnClickOk")
+            if (it) {
+                // 検索画面を表示する
+                val empSearchFragment = EmpSearchFragment()
+                empSearchFragment.show(parentFragmentManager, "EmpSearchFragment")
+            }
         })
 
     }

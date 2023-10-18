@@ -82,6 +82,17 @@ class EmpListViewModel: ViewModel() {
      */
     fun getOnClickSearch(): MutableLiveData<Event<Boolean>> { return onClickSearch }
 
+    /**
+     * 検索結果が見つからないダイアログの表示(LiveData)
+     */
+    private var showErrorSearchFilter = MutableLiveData<Event<Boolean>>()
+
+    /**
+     * getShowErrorSearchFilter
+     * 検索ボタンが押下されたかの判定をFragmentに渡す
+     */
+    fun getShowErrorSearchFilter(): MutableLiveData<Event<Boolean>> { return showErrorSearchFilter }
+
 
     /**
      * init
@@ -123,8 +134,8 @@ class EmpListViewModel: ViewModel() {
         if(filteredEmp.isNotEmpty()) {
             empData.postValue(Event(filteredEmp))
         } else {
-            // 見つからない場合は全件表示
-            empData.postValue(Event(list))
+            // 見つからない場合はエラーダイアログ表示
+            showErrorSearchFilter.postValue(Event(true))
         }
 
         Log.d(TAG, "runSearch End")
