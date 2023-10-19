@@ -9,31 +9,34 @@ import com.example.hrchart.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
- * エラーダイアログ(検索結果0件) Fragment
+ * ログアウト確認ダイアログ Fragment
  * 画面ID:
  *
  * @author K.Takahashi
- * created on 2023/10/18
+ * created on 2023/10/19
  */
-class ErrorSearchFilterDialogFragment : DialogFragment() {
+class ConfirmLogoutDialogFragment : DialogFragment() {
 
     companion object {
         /** TAG */
-        private const val TAG = "ErrorSearchFilterDialogFragment"
+        private const val TAG = "ConfirmLogoutDialogFragment"
     }
 
     /** ViewModel */
-    val viewModel: ErrorSearchFilterDialogViewModel by activityViewModels()
+    val viewModel: ConfirmLogoutDialogViewModel by activityViewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         Log.d(TAG, "onCreateDialog Start")
 
         val builder = MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.error_search_filter_title)
-            .setMessage(R.string.error_search_filter_msg)
-            .setPositiveButton(R.string.ok) { dialog, _ ->
-                // OKボタンがタップされたときの処理
+            .setTitle(R.string.confirm_logout)
+            .setPositiveButton(R.string.yes) { dialog, _ ->
+                // "はい"ボタンが押下された時の処理
                 viewModel.onClickPositive()
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.no) { dialog, _ ->
+                // "いいえ"ボタンが押下された時の処理
                 dialog.dismiss()
             }
             // 戻るボタン無効

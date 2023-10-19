@@ -10,6 +10,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -94,8 +95,9 @@ class EmpListFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 // ログアウトボタン押下
                 if(menuItem.itemId == R.id.logout_menu_item) {
-                    // Todo ログアウトボタン押下時の処理を追加
-                    println("ログアウトボタン押下")
+                    // ログアウト確認ダイアログを表示
+                    val confirmLogoutDialogFragment = ConfirmLogoutDialogFragment()
+                    confirmLogoutDialogFragment.show(parentFragmentManager, "confirmLogoutDialogFragment")
                 }
                 return true
             }
@@ -156,7 +158,7 @@ class EmpListFragment : Fragment() {
             binding.empListRecyclerView.addItemDecoration(itemDecoration)
         })
 
-        // 検索ボタンのobserve処理
+        // 検索ボタンのobserve
         viewModel.getOnClickSearch().observe(viewLifecycleOwner, EventObserver {
             Log.d(TAG, "getOnSearch")
             if (it) {
@@ -166,15 +168,14 @@ class EmpListFragment : Fragment() {
             }
         })
 
-        // 検索画面のobserve処理
+        // 検索画面のobserve
         val searchViewModel: EmpSearchViewModel by activityViewModels()
         searchViewModel.getOnSearchArray().observe(viewLifecycleOwner, EventObserver {
             Log.d(TAG, "getOnSearchArray")
             // 検索条件をViewModelに渡す
             viewModel.runSearch(it[0], it[1], it[2], it[3])
         })
-
-        // 検索結果0件ダイアログの表示
+        // 検索結果0件
         viewModel.getShowErrorSearchFilter().observe(viewLifecycleOwner, EventObserver {
             Log.d(TAG, "getShowErrorSearchFilter")
             if (it) {
@@ -184,14 +185,24 @@ class EmpListFragment : Fragment() {
             }
         })
 
-        // 検索結果0件ダイアログのOKボタンobserve処理
+        // 検索結果0件ダイアログのobserve
         val errorSearchFilterDialogViewModel: ErrorSearchFilterDialogViewModel by activityViewModels()
-        errorSearchFilterDialogViewModel.getOnClickOk().observe(viewLifecycleOwner, EventObserver {
-            Log.d(TAG, "getOnClickOk")
+        errorSearchFilterDialogViewModel.getOnClickPositive().observe(viewLifecycleOwner, EventObserver {
+            Log.d(TAG, "getOnClickPositive")
             if (it) {
                 // 検索画面を表示する
                 val empSearchFragment = EmpSearchFragment()
                 empSearchFragment.show(parentFragmentManager, "EmpSearchFragment")
+            }
+        })
+
+        // ログアウトダイアログのobserve
+        val confirmLogoutDialogViewModel: ConfirmLogoutDialogViewModel by activityViewModels()
+        confirmLogoutDialogViewModel.getOnClickPositive().observe(viewLifecycleOwner, EventObserver {
+            Log.d(TAG, "getOnClickPositive")
+            if (it) {
+                // Todo ログアウト処理
+                Toast.makeText(activity, "ログアウトしました", Toast.LENGTH_SHORT).show()
             }
         })
 
