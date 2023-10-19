@@ -5,12 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,6 +61,9 @@ class EmpListFragment : Fragment() {
         // ViewModelにnavControllerをセット
         viewModel.navController(findNavController())
 
+        // ActionBarのメニュー制御
+        setupMenuBar()
+
         // フッターアイコンの表示処理
         setFooterIcon()
 
@@ -67,6 +76,30 @@ class EmpListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    /**
+     * setupMenuBar
+     * ActionBarのメニュー制御
+     */
+    private fun setupMenuBar() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            }
+
+            override fun onPrepareMenu(menu: Menu) {
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // ログアウトボタン押下
+                if(menuItem.itemId == R.id.logout_menu_item) {
+                    // Todo ログアウトボタン押下時の処理を追加
+                    println("ログアウトボタン押下")
+                }
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onResume() {

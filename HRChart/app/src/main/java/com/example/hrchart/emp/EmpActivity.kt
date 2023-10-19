@@ -1,7 +1,12 @@
 package com.example.hrchart.emp
 
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.core.view.MenuProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -25,15 +30,38 @@ class EmpActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.nav_host_fragment)
 
+        // アクションバーの背景色
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.light_gray)))
+
         // ActionBarにNavigation機能を追加する
         setupActionBarWithNavController(navController)
+
+        // ActionBarのメニュー制御
+        setupMenuBar()
     }
 
     /**
-     * onSupportNavigateUpメソッド(オーバーライド)
+     * onSupportNavigateUp(オーバーライド)
      * 戻るボタンが前画面に戻るように機能させる
      */
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    /**
+     * setupMenuBar
+     * ActionBarのメニュー制御
+     */
+    private fun setupMenuBar() {
+        addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.custom_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // アイコンタップ時の処理はFragment側で制御するためfalseを返す
+                return false
+            }
+        })
     }
 }
