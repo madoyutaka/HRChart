@@ -14,91 +14,154 @@
             android:id="@+id/emp_search_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/margin_16"
+            android:paddingBottom="@dimen/padding_16"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" >
 
-            <EditText
-                android:id="@+id/emp_search_name_et"
+            <!-- タイトル -->
+            <TextView
+                style="@style/WhiteText"
+                android:id="@+id/emp_search_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="名前"
-                android:inputType="text"
+                android:padding="@dimen/padding_8"
+                android:text="@string/search_filter"
+                android:gravity="center"
+                android:background="@color/gray"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <!-- 名前 -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emp_search_name_et_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:hint="@string/emp_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emp_search_title">
+                <EditText
+                    android:id="@+id/emp_search_name_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:autofillHints="@string/emp_name" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/emp_search_vertical_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
+
+            <!-- ステータス -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:id="@+id/emp_search_status_dropdown_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_16"
                 android:hint="@string/emp_status"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/emp_search_area_dropdown_label"
-                app:layout_constraintTop_toBottomOf="@id/emp_search_name_et"
-                >
+                app:layout_constraintEnd_toStartOf="@+id/emp_search_vertical_guideline"
+                app:layout_constraintTop_toBottomOf="@id/emp_search_name_et_label">
                 <AutoCompleteTextView
                     android:id="@+id/emp_search_status_dropdown_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="@string/enrollment"
+                    android:text="@string/all"
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- エリア -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:id="@+id/emp_search_area_dropdown_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_16"
                 android:hint="@string/emp_area"
-                app:layout_constraintStart_toEndOf="@id/emp_search_status_dropdown_label"
+                app:layout_constraintStart_toEndOf="@id/emp_search_vertical_guideline"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/emp_search_name_et"
-                >
+                app:layout_constraintTop_toBottomOf="@id/emp_search_name_et_label">
                 <AutoCompleteTextView
                     android:id="@+id/emp_search_area_dropdown_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="東京"
+                    android:text="@string/all"
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- 職種 -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:id="@+id/emp_search_job_dropdown_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="4dp"
                 android:hint="@string/emp_job"
-                app:layout_constraintWidth_percent="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/emp_search_status_dropdown_label"
-                >
+                app:layout_constraintEnd_toStartOf="@id/emp_search_vertical_guideline"
+                app:layout_constraintTop_toBottomOf="@id/emp_search_status_dropdown_label">
                 <AutoCompleteTextView
                     android:id="@+id/emp_search_job_dropdown_item"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:inputType="none"
-                    android:text="開発エンジニア"
+                    android:text="@string/all"
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/emp_search_close_button"
-                android:layout_width="wrap_content"
+            <!-- クリアボタン -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/emp_search_clear_button"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16"
-                android:backgroundTint="@color/gray"
-                android:textColor="@color/black"
-                android:text="close"
+                android:layout_margin="@dimen/margin_16"
+                android:text="@string/clear_filter"
+                android:textSize="@dimen/text_size_16"
+                android:background="@drawable/white_button"
+                android:textColor="@color/cyan"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/emp_search_job_dropdown_label" />
+
+            <!-- キャンセルボタン -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/emp_search_close_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16"
+                android:background="@drawable/negative_button"
+                android:textColor="@color/white"
+                android:text="@string/cancel"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/emp_search_vertical_guideline"
+                app:layout_constraintTop_toBottomOf="@id/emp_search_clear_button" />
+
+            <!-- 検索ボタン -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/emp_search_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16"
+                android:background="@drawable/positive_button"
+                android:textColor="@color/white"
+                android:text="@string/search"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintStart_toEndOf="@+id/emp_search_vertical_guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emp_search_clear_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

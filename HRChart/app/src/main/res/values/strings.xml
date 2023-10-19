@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">HRChart</string>
 
+    <!--  common  -->
+    <string name="employee_list">従業員一覧</string>
+    <string name="employee_info">従業員情報</string>
+    <string name="recruitment_list">年間採用一覧</string>
+    <string name="add_emp">新規登録</string>
+    <string name="ok">OK</string>
+    <string name="cancel">キャンセル</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="search">検索</string>
+    <string name="all">すべて</string>
+
     <!--  従業員情報関連  -->
     <string name="emp_name">名前</string>
     <string name="emp_phonetic">フリガナ</string>
@@ -31,6 +43,15 @@
     <string name="emp_rank">ランク</string>
     <string name="enrollment">在職</string>
     <string name="retirement">退職</string>
+
+    <!-- 従業員検索関連-->
+    <string name="clear_filter">検索条件をクリアする</string>
+    <string name="search_filter">絞り込み検索</string>
+
+    <!-- msg -->
+    <string name="confirm_logout">ログアウトしますか？</string>
+    <string name="error_search_filter_title">検索結果が見つかりません</string>
+    <string name="error_search_filter_msg">検索条件を変更して再度検索してください</string>
 
 
 </resources>

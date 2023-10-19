@@ -5,28 +5,33 @@
     android:id="@+id/nav_graph_emp"
     app:startDestination="@id/emp_list_fragment">
 
+    <!-- 従業員一覧画面 -->
     <fragment
         android:id="@+id/emp_list_fragment"
         android:name="com.example.hrchart.emp.view.EmpListFragment"
-        android:label="EmpListFragment"
+        android:label="@string/employee_list"
         tools:layout="@layout/fragment_emp_list">
+        <!-- 従業員情報画面へ遷移 -->
         <action
             android:id="@+id/action_emp_list_to_emp_info"
             app:destination="@id/emp_info_fragment" />
     </fragment>
 
+    <!-- 従業員情報画面 -->
     <fragment
         android:id="@+id/emp_info_fragment"
         android:name="com.example.hrchart.emp.view.EmpInfoFragment"
-        android:label="EmpInfoFragment"
+        android:label="@string/employee_info"
         tools:layout="@layout/fragment_emp_info">
+        <!-- 従業員一覧画面へ遷移 -->
         <action
             android:id="@+id/action_emp_info_to_emp_list"
             app:destination="@id/emp_list_fragment" />
+        <!-- IDの受け取り -->
         <argument
-            android:name="arg"
-            app:argType="integer" />
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0"/>
     </fragment>
-
 
 </navigation>

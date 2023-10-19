@@ -16,11 +16,17 @@
         android:layout_height="match_parent"
         tools:context=".emp.view.EmpListFragment">
 
+        <!-- 従業員リスト -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/emp_list_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/emp_list_divider"/>
 
+        <!-- 検索ボタン -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/emp_list_search_button"
             android:layout_width="wrap_content"
@@ -30,8 +36,64 @@
             app:srcCompat="@drawable/search_white_24"
             app:tint="@color/white"
             app:backgroundTint="@color/bright_cyan"
+            app:layout_constraintBottom_toTopOf="@id/emp_list_footer"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <!-- 境界線 -->
+        <View
+            android:id="@+id/emp_list_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toTopOf="@id/emp_list_footer"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/emp_list_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_gray"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- 従業員一覧ボタン -->
+            <Button
+                android:id="@+id/emp_list_footer_list_button"
+                style="@style/FooterButtonText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                android:layout_weight="1"
+                android:text="@string/employee_list"
+                android:drawableTop="@drawable/ic_list_cyan"
+                android:backgroundTint="@android:color/transparent" />
+
+            <!-- 年間採用一覧ボタン -->
+            <Button
+                android:id="@+id/emp_list_footer_recruit_button"
+                style="@style/FooterButtonText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                android:layout_weight="1"
+                android:text="@string/recruitment_list"
+                android:drawableTop="@drawable/ic_calendar_cyan"
+                android:backgroundTint="@android:color/transparent"/>
+
+            <!-- 新規登録ボタン -->
+            <Button
+                android:id="@+id/emp_list_footer_add_emp_button"
+                style="@style/FooterButtonText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                android:layout_weight="1"
+                android:text="@string/add_emp"
+                android:drawableTop="@drawable/ic_add_cyan"
+                android:backgroundTint="@android:color/transparent"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
