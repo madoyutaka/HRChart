@@ -5,27 +5,19 @@
     android:id="@+id/nav_graph_login"
     app:startDestination="@id/login_fragment">
 
+    <!-- nav_graph_empを参照 -->
+    <include app:graph="@navigation/nav_graph_emp" />
+
     <fragment
         android:id="@+id/login_fragment"
         android:name="com.example.hrchart.login.view.LoginFragment"
-        android:label="fragment_login"
+        android:label="@string/login_title"
         tools:layout="@layout/fragment_login">
+        <!-- 従業員一覧画面へ遷移 -->
         <action
-            android:id="@+id/action_login_fragment_to_blank_fragment"
-            app:destination="@id/blank_fragment" />
+            android:id="@+id/action_login_fragment_to_nav_graph_emp"
+            app:destination="@id/nav_graph_emp" />
     </fragment>
 
-    <fragment
-        android:id="@+id/blank_fragment"
-        android:name="com.example.hrchart.login.view.BlankFragment"
-        android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank">
-        <action
-            android:id="@+id/action_blank_fragment_to_login_fragment"
-            app:destination="@id/login_fragment" />
-        <argument
-            android:name="loginType"
-            app:argType="string" />
-    </fragment>
 
 </navigation>
