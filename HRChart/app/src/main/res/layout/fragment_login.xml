@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         tools:context=".login.view.LoginFragment">
 
+        <!-- アプリタイトル -->
         <TextView
             android:id="@+id/login_title"
             android:layout_width="wrap_content"
@@ -27,6 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- パスワード入力欄 -->
         <EditText
             android:id="@+id/edit_text_password"
             android:layout_width="match_parent"
@@ -41,6 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- ログインボタン -->
         <Button
             android:id="@+id/login_button"
             android:layout_width="match_parent"

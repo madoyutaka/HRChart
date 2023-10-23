@@ -124,4 +124,33 @@ class LoginFragment : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume Start")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause Start")
+        Log.d(TAG, "onPause End")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop Start")
+        Log.d(TAG, "onStop End")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(TAG, "onDestroyView Start")
+        Log.d(TAG, "onDestroyView End")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy Start")
+        Log.d(TAG, "onDestroy End")
+    }
+
 }
