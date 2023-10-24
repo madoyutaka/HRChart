@@ -175,7 +175,7 @@ class EmpListFragment : Fragment() {
             // 検索条件をViewModelに渡す
             viewModel.runSearch(it[0], it[1], it[2], it[3])
         })
-        // 検索結果0件
+        // 検索結果0件ダイアログの表示
         viewModel.getShowErrorSearchFilter().observe(viewLifecycleOwner, EventObserver {
             Log.d(TAG, "getShowErrorSearchFilter")
             if (it) {

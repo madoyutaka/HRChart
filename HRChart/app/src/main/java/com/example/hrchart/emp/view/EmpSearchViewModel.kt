@@ -20,9 +20,7 @@ class EmpSearchViewModel: ViewModel() {
         private const val TAG = "EmpSearchViewModel"
     }
 
-    /**
-     * 検索条件(LiveData)
-     */
+    /** 検索条件(LiveData) */
     private val onSearchArray: MutableLiveData<Event<Array<String>>> = MutableLiveData()
 
     /**
