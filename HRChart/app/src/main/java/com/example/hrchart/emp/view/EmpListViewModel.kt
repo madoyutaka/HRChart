@@ -4,9 +4,12 @@ package com.example.hrchart.emp.view
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.hrchart.common.Event
 import com.example.hrchart.emp.data.EmpData
+import com.example.hrchart.emp.data.EmpRepository
+import kotlinx.coroutines.launch
 
 /**
  * 従業員一覧画面 ViewModel
@@ -20,20 +23,6 @@ class EmpListViewModel: ViewModel() {
     companion object {
         /** TAG */
         private const val TAG = "EmpListViewModel"
-
-        // テストデータ
-        val list = arrayListOf(
-            EmpData(1, "山田 太郎", "22", "開発エンジニア", "東京", "在職"),
-            EmpData(2, "鈴木 一郎", "46", "営業", "大阪", "退職"),
-            EmpData(3, "佐藤 二郎", "51", "開発エンジニア", "宮城", "休職"),
-            EmpData(4, "test01", "26", "ネットワーク", "東京", "在職"),
-            EmpData(5, "test02", "32", "開発エンジニア", "東京", "在職"),
-            EmpData(6, "test03", "38", "開発エンジニア", "福岡", "在職"),
-            EmpData(7, "test04", "44", "営業", "東京", "在職"),
-            EmpData(8, "test05", "24", "開発エンジニア", "東京", "在職"),
-            EmpData(9, "test06", "48", "管理", "東京", "在職"),
-            EmpData(10, "test07", "52", "開発エンジニア", "愛知", "在職")
-        )
     }
 
     /** ID */
@@ -46,17 +35,19 @@ class EmpListViewModel: ViewModel() {
     private var area: String = ""
     /** 職種 */
     private var job: String = ""
+    /** 従業員リスト */
+    private var list: List<EmpData> = emptyList()
+    /** EmpRepository */
+    private val empRepository: EmpRepository = EmpRepository()
 
-    /**
-     * 従業員リスト(LiveData)
-     */
-    private var empData = MutableLiveData<Event<ArrayList<EmpData>>>()
+    /** 従業員リスト(LiveData) */
+    private var empData = MutableLiveData<Event<List<EmpData>>>()
 
     /**
      *  getEmpList
      *  リストをFragmentへ渡す
      */
-    fun getEmpList(): MutableLiveData<Event<ArrayList<EmpData>>> { return empData }
+    fun getEmpList(): MutableLiveData<Event<List<EmpData>>> { return empData }
 
     /** navController */
     private lateinit var navController: NavController
@@ -71,9 +62,7 @@ class EmpListViewModel: ViewModel() {
         this.navController = navController
     }
 
-    /**
-     * 検索ボタン押下(LiveData)
-     */
+    /** 検索ボタン押下(LiveData) */
     private var onClickSearch = MutableLiveData<Event<Boolean>>()
 
     /**
@@ -82,14 +71,12 @@ class EmpListViewModel: ViewModel() {
      */
     fun getOnClickSearch(): MutableLiveData<Event<Boolean>> { return onClickSearch }
 
-    /**
-     * 検索結果が見つからないダイアログの表示(LiveData)
-     */
+    /** 検索結果0件ダイアログの表示(LiveData) */
     private var showErrorSearchFilter = MutableLiveData<Event<Boolean>>()
 
     /**
      * getShowErrorSearchFilter
-     * 検索ボタンが押下されたかの判定をFragmentに渡す
+     * 検索ボタン0件ダイアログの表示判定をFragmentに渡す
      */
     fun getShowErrorSearchFilter(): MutableLiveData<Event<Boolean>> { return showErrorSearchFilter }
 
@@ -99,31 +86,27 @@ class EmpListViewModel: ViewModel() {
      */
     init {
         Log.d(TAG, "init")
-        // テスト用 リストアイテム表示
-//        Handler(Looper.getMainLooper()).postDelayed({
+        // リストアイテム表示
         setEmpList()
-//        }, 5000)
     }
 
     /**
-     * setEmpList
-     * リストアイテムをFragmentにLiveDataで渡す
+     * runSearch
+     * 検索条件に応じたデータを検索して表示する
+     * @param name 名前
+     * @param status ステータス
+     * @param area エリア
+     * @param job 職種
      */
-    fun setEmpList() {
-        Log.d(TAG, "setEmpList")
-        empData.postValue(Event(list))
-    }
-
     fun runSearch(name: String, status: String, area: String, job: String) {
-        Log.d(TAG, "runSearch Start")
+        Log.d(TAG, "runSearch")
         this.name = name
         this.status = status
         this.area = area
         this.job = job
 
-        // 各項目が空欄の場合も含めてand条件で検索
-        // 名前は部分一致
-        val filteredEmp: ArrayList<EmpData> = ArrayList(list.filter {
+        // 名前(部分一致)、ステータス、エリア、職種でフィルタリング
+        val filteredEmp: List<EmpData> = ArrayList(list.filter {
             (this.name.isEmpty() || it.empName.contains(this.name)) &&
             (this.status.isEmpty() || ((this.status == "すべて")) || it.status == this.status) &&
             (this.area.isEmpty() || ((this.area == "すべて")) || it.area == this.area) &&
@@ -137,8 +120,6 @@ class EmpListViewModel: ViewModel() {
             // 見つからない場合はエラーダイアログ表示
             showErrorSearchFilter.postValue(Event(true))
         }
-
-        Log.d(TAG, "runSearch End")
     }
 
     /**
@@ -162,4 +143,25 @@ class EmpListViewModel: ViewModel() {
         onClickSearch.postValue(Event(true))
     }
 
+
+    /**
+     * setEmpList
+     * API通信で取得したリストを表示する
+     */
+    fun setEmpList() {
+        Log.d(TAG, "setEmpList")
+        // 非同期処理
+        viewModelScope.launch {
+            try {
+                // デシリアライズしたJsonデータを取得
+                val data = empRepository.getEmpListData().empData
+                // Firebaseから取得したデータはmapのためlistへ変換
+                list = data.values.toList() // 検索で使用できるように変数で保持
+                empData.postValue(Event(list))
+
+            } catch (e: Exception){
+                e.printStackTrace()
+            }
+        }
+    }
 }
