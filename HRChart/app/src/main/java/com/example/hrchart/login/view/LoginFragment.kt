@@ -1,24 +1,29 @@
 package com.example.hrchart.login.view
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.hrchart.R
 import com.example.hrchart.databinding.FragmentLoginBinding
 import com.example.hrchart.dialog.SimpleAlertDialogFragment
+
 
 class LoginFragment : Fragment() {
 
@@ -69,6 +74,27 @@ class LoginFragment : Fragment() {
             viewModel.updateButton(text.isNullOrBlank())
         }
 
+        // キーボードの表示管理
+        binding.editTextPassword.setOnEditorActionListener { _, i, keyEvent ->
+            if (i == EditorInfo.IME_ACTION_SEARCH ||
+                i == EditorInfo.IME_ACTION_DONE ||
+                keyEvent != null &&
+                keyEvent.action == KeyEvent.ACTION_DOWN &&
+                keyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (keyEvent == null || !keyEvent.isShiftPressed) {
+                    // フォーカスを外す
+                    binding.root.requestFocus()
+                    // キーボード非表示
+                    showOffKeyboard()
+                    return@setOnEditorActionListener true
+                } else {
+                    return@setOnEditorActionListener false
+                }
+            } else {
+                return@setOnEditorActionListener false
+            }
+        }
+
         // ログインボタン押下のListener
         binding.loginButton.setOnClickListener { v ->
             // 入力されたパスワード受け渡し
@@ -101,6 +127,15 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+    }
+
+    /**
+     * showOffKeyboard
+     * キーボード非表示
+     */
+    private fun showOffKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
     /**
