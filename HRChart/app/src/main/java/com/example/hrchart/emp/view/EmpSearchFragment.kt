@@ -16,6 +16,7 @@ import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.hrchart.R
+import com.example.hrchart.common.EventObserver
 import com.example.hrchart.common.InputFilters
 import com.example.hrchart.databinding.FragmentEmpSearchBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -127,6 +128,8 @@ class EmpSearchFragment : BottomSheetDialogFragment() {
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume Start")
+        //ドロップダウンアイテムをDBから取得
+        viewModel.getDropDownItem()
         // ドロップダウン初期化
         val statusDropdown : AutoCompleteTextView = binding.empSearchStatusDropdownItem
         val areasDropdown : AutoCompleteTextView = binding.empSearchAreaDropdownItem
@@ -158,17 +161,25 @@ class EmpSearchFragment : BottomSheetDialogFragment() {
      */
     private fun initDropdown(statusDropdown: AutoCompleteTextView, areasDropdown: AutoCompleteTextView, jobsDropdown: AutoCompleteTextView) {
         Log.d(TAG, "initDropdown")
-        // テストデータ
-        val statusArray = arrayOf("すべて","在職", "退職", "休職", "辞退", "内定", "見込み")
-        val areasArray = arrayOf("すべて","東京", "大阪", "愛知", "宮城", "福岡")
-        val jobsArray = arrayOf("すべて","開発エンジニア", "営業", "管理", "ネットワーク")
 
-        val statusArrayAdapter = ArrayAdapter(statusDropdown.rootView.context, R.layout.item_drop_down, statusArray)
-        statusDropdown.setAdapter(statusArrayAdapter)
-        val areasArrayAdapter = ArrayAdapter(areasDropdown.rootView.context, R.layout.item_drop_down, areasArray)
-        areasDropdown.setAdapter(areasArrayAdapter)
-        val jobsArrayAdapter = ArrayAdapter(jobsDropdown.rootView.context, R.layout.item_drop_down, jobsArray)
-        jobsDropdown.setAdapter(jobsArrayAdapter)
+        viewModel.getDropDownData().observe(viewLifecycleOwner, EventObserver {
+            Log.d(TAG, "getDropDownData")
+            // ステータス
+            val statusArray = arrayOf(it.statuses.statusAll, it.statuses.enrollment, it.statuses.retirement,
+                it.statuses.loa, it.statuses.decline, it.statuses.decision, it.statuses.likelihood)
+            // エリア
+            val areasArray = arrayOf(it.areas.areasAll, it.areas.tokyo, it.areas.osaka, it.areas.aichi,
+                it.areas.miyagi, it.areas.fukuoka)
+            // 職種
+            val jobsArray = arrayOf(it.jobs.jobsAll, it.jobs.engineer, it.jobs.sales, it.jobs.management, it.jobs.network)
+
+            val statusArrayAdapter = ArrayAdapter(statusDropdown.rootView.context, R.layout.item_drop_down, statusArray)
+            statusDropdown.setAdapter(statusArrayAdapter)
+            val areasArrayAdapter = ArrayAdapter(areasDropdown.rootView.context, R.layout.item_drop_down, areasArray)
+            areasDropdown.setAdapter(areasArrayAdapter)
+            val jobsArrayAdapter = ArrayAdapter(jobsDropdown.rootView.context, R.layout.item_drop_down, jobsArray)
+            jobsDropdown.setAdapter(jobsArrayAdapter)
+        })
     }
 
     /**
