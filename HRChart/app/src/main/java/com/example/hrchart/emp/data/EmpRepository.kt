@@ -32,7 +32,7 @@ class EmpRepository {
 
     /**
      * getEmpListData
-     * InterfaceのGETメソッドを返す
+     * InterfaceのGETメソッドを返す(全従業員リスト)
      */
     suspend fun getEmpListData(): EmpDataResponse {
         return empService.getEmpData()
@@ -40,9 +40,33 @@ class EmpRepository {
 
     /**
      * getEmpInfo
-     * InterfaceのGETメソッドを返す
+     * InterfaceのGETメソッドを返す(従業員詳細情報)
      */
     suspend fun getEmpInfo(id: Int): EmpData {
         return empService.getEmpInfo(id)
+    }
+
+    /**
+     * getStatuses
+     * InterfaceのGETメソッドを返す(ステータス)
+     */
+    suspend fun getStatuses(): Statuses {
+        return empService.getStatuses()
+    }
+
+    /**
+     * getAreas
+     * InterfaceのGETメソッドを返す(エリア)
+     */
+    suspend fun getAreas(): Areas {
+        return empService.getAreas()
+    }
+
+    /**
+     * getJobs
+     * InterfaceのGETメソッドを返す(職種)
+     */
+    suspend fun getJobs(): Jobs {
+        return empService.getJobs()
     }
 }
