@@ -36,12 +36,4 @@ data class EmpData(
     var decisionMonth: String, // 決定月
     var divApplication: String, // 応募区分
     var rank: String, // ランク
-) {
-    // 従業員一覧画面用コンストラクタ
-    constructor(id: Int, empName: String, age: String, job: String, area: String, status: String)
-    : this(id, empName, "Unknown", "Unknown", "Unknown", age, "Unknown", job, area, status,
-        "Unknown", "Unknown", "Unknown", "Unknown", "Unknown", "Unknown",
-        "Unknown", "Unknown", "Unknown", "Unknown", "Unknown", "Unknown",
-        "Unknown", "Unknown", "Unknown", "Unknown", "Unknown", "Unknown")
-}
-
+)
