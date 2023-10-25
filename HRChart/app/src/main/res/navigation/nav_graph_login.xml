@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_login"
+    app:startDestination="@id/login_fragment">
+
+    <!-- nav_graph_empを参照 -->
+    <include app:graph="@navigation/nav_graph_emp" />
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.example.hrchart.login.view.LoginFragment"
+        android:label="@string/login_title"
+        tools:layout="@layout/fragment_login">
+        <!-- 従業員一覧画面へ遷移 -->
+        <action
+            android:id="@+id/action_login_fragment_to_nav_graph_emp"
+            app:destination="@id/nav_graph_emp" />
+    </fragment>
+
+
+</navigation>

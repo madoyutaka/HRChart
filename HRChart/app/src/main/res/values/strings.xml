@@ -53,5 +53,9 @@
     <string name="error_search_filter_title">検索結果が見つかりません</string>
     <string name="error_search_filter_msg">検索条件を変更して再度検索してください</string>
 
-
+    <!-- ログイン画面 -->
+    <string name="login_title">ログイン</string>
+    <string name="hr_chat_title">人事カルテシステム</string>
+    <string name="login_btn">ログイン</string>
+    <string name="password">パスワード</string>
 </resources>
