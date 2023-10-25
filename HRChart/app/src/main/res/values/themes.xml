@@ -9,6 +9,7 @@
         <item name="android:background">@drawable/bottom_sheet_dialog_background</item>
     </style>
 
+    <!--  従業員検索画面  -->
     <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
@@ -16,5 +17,15 @@
 
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog">
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <!--  カレンダーダイアログ  -->
+    <style name="CalendarDatePickerStyle" parent="android:Theme.Material.Dialog">
+        <item name="android:datePickerStyle">@style/CalendarDatePicker</item>
+    </style>
+
+    <style name="CalendarDatePicker" parent="android:Widget.Material.DatePicker">
+        <item name="android:datePickerMode">calendar</item>
+        <item name="android:labelTextSize"></item>
     </style>
 </resources>

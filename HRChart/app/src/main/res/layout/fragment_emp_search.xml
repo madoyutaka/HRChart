@@ -121,6 +121,27 @@
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- 入社日 -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emp_search_joined_et_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:hint="@string/emp_joined_date"
+                app:layout_constraintStart_toEndOf="@id/emp_search_vertical_guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emp_search_area_dropdown_label">
+                <EditText
+                    android:id="@+id/emp_search_joined_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:autofillHints="yyyy/MM/dd" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!-- クリアボタン -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/emp_search_clear_button"

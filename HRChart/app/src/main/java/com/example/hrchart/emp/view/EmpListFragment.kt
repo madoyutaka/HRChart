@@ -173,7 +173,7 @@ class EmpListFragment : Fragment() {
         searchViewModel.getOnSearchArray().observe(viewLifecycleOwner, EventObserver {
             Log.d(TAG, "getOnSearchArray")
             // 検索条件をViewModelに渡す
-            viewModel.runSearch(it[0], it[1], it[2], it[3])
+            viewModel.runSearch(it[0], it[1], it[2], it[3], it[4])
         })
         // 検索結果0件ダイアログの表示
         viewModel.getShowErrorSearchFilter().observe(viewLifecycleOwner, EventObserver {

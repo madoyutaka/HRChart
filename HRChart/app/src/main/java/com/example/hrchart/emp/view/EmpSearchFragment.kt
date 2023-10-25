@@ -83,12 +83,27 @@ class EmpSearchFragment : BottomSheetDialogFragment() {
             val status = binding.empSearchStatusDropdownItem.text.toString()
             val area = binding.empSearchAreaDropdownItem.text.toString()
             val job = binding.empSearchJobDropdownItem.text.toString()
+            val joinedDate = binding.empSearchJoinedEt.text.toString()
 
-            val searchArray = arrayOf(name, status, area, job)
+            val searchArray = arrayOf(name, status, area, job, joinedDate)
             // 検索結果をViewModelへ配列で渡す
             viewModel.onClickSearch(searchArray)
             dismiss()
         }
+
+        // 入社日(EditText)
+        binding.empSearchJoinedEt.setOnClickListener {
+            val selectJoinedDateDialog = SelectJoinedDateDialogFragment()
+            selectJoinedDateDialog.show(parentFragmentManager, "SelectJoinedDateDialogFragment")
+        }
+
+        // 入社日選択時のobserve処理
+        val selectJoinedDateDialogViewModel: SelectJoinedDateDialogViewModel by activityViewModels()
+        selectJoinedDateDialogViewModel.getOnClickPositive().observe(viewLifecycleOwner, EventObserver {
+            Log.d(TAG, "getOnClickPositive")
+            // 入社日のEditTextにセット
+            binding.empSearchJoinedEt.setText(it)
+        })
 
         val etName = binding.empSearchNameEt
         // キーボード制御
