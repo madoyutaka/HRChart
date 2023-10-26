@@ -1,7 +1,10 @@
 package com.example.hrchart.login.view
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -19,10 +22,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import com.example.hrchart.R
 import com.example.hrchart.databinding.FragmentLoginBinding
 import com.example.hrchart.dialog.SimpleAlertDialogFragment
+import com.example.hrchart.emp.EmpActivity
 
 
 class LoginFragment : Fragment() {
@@ -83,7 +86,7 @@ class LoginFragment : Fragment() {
                 keyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
                 if (keyEvent == null || !keyEvent.isShiftPressed) {
                     // フォーカスを外す
-                    binding.root.requestFocus()
+                    binding.editTextPassword.clearFocus()
                     // キーボード非表示
                     showOffKeyboard()
                     return@setOnEditorActionListener true
@@ -95,8 +98,14 @@ class LoginFragment : Fragment() {
             }
         }
 
+        // 背景をタップしたらソフトキーボードを閉じてフォーカスアウトする
+        binding.root.setOnClickListener {
+            showOffKeyboard()
+            binding.editTextPassword.clearFocus()
+        }
+
         // ログインボタン押下のListener
-        binding.loginButton.setOnClickListener { v ->
+        binding.loginButton.setOnClickListener {
             // 入力されたパスワード受け渡し
             inputPassword = binding.editTextPassword.text.toString()
             // パスワード確認
@@ -106,19 +115,23 @@ class LoginFragment : Fragment() {
             when (loginType) {
                 //
                 "user", "admin" -> {
-                    val navHostFragment =
-                        requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                    // EmpActivityへ遷移
+                    val intent = Intent(context, EmpActivity::class.java)
+                    // loginTypeを渡す
+                    intent.putExtra("loginType", loginType)
+                    startActivity(intent)
 
-                    // NavController取得
-                    val navController = navHostFragment.navController
-                    val action =
-                        LoginFragmentDirections.actionLoginFragmentToNavGraphEmp()
-                    navController.navigate(action)
+                    // 画面遷移前にクリアされないように少しdelayをかける
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        // パスワード欄とフォーカスはクリアする
+                        binding.editTextPassword.text.clear()
+                        binding.editTextPassword.clearFocus()
+                    },3000)
                 }
                 // それ以外(パスワード不一致など)
                 else -> {
                     // パスワード入力欄を空にして、エラーダイアログを表示
-                    binding.editTextPassword.text = null
+                    binding.editTextPassword.text.clear()
                     // ダイアログ表示処理
                     val dialog =  SimpleAlertDialogFragment("ログイン失敗", "パスワードが異なります。再入力してください。") {
                         // OK時の処理

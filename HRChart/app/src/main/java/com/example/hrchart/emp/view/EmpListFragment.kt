@@ -44,6 +44,8 @@ class EmpListFragment : Fragment() {
     private val viewModel: EmpListViewModel by viewModels()
     /** binding */
     private lateinit var binding: FragmentEmpListBinding
+    /** loginType */
+    private var loginType: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +63,11 @@ class EmpListFragment : Fragment() {
 
         // ViewModelにnavControllerをセット
         viewModel.navController(findNavController())
+
+        // LoginActivityからの値受け取り
+        loginType = requireActivity().intent.getStringExtra("loginType")
+        // test(Toast表示) loginTypeによって従業員情報画面の遷移を変える予定(参照のみor編集可能)
+        Toast.makeText(activity, loginType, Toast.LENGTH_SHORT).show()
 
         // ActionBarのメニュー制御
         setupMenuBar()
@@ -201,8 +208,9 @@ class EmpListFragment : Fragment() {
         confirmLogoutDialogViewModel.getOnClickPositive().observe(viewLifecycleOwner, EventObserver {
             Log.d(TAG, "getOnClickPositive")
             if (it) {
-                // Todo ログアウト処理
-                Toast.makeText(activity, "ログアウトしました", Toast.LENGTH_SHORT).show()
+                // ログアウト処理
+                loginType = null
+                requireActivity().finish()
             }
         })
 
