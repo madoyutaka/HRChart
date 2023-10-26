@@ -5,9 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hrchart.common.Event
-import com.example.hrchart.emp.data.Areas
 import com.example.hrchart.emp.data.DropDownData
-import com.example.hrchart.emp.data.EmpRepository
+import com.example.hrchart.emp.model.EmpRepository
 import kotlinx.coroutines.launch
 
 

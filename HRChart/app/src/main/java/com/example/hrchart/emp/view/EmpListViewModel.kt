@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.hrchart.common.Event
 import com.example.hrchart.emp.data.EmpData
-import com.example.hrchart.emp.data.EmpRepository
+import com.example.hrchart.emp.model.EmpRepository
 import kotlinx.coroutines.launch
 
 /**
@@ -101,13 +101,13 @@ class EmpListViewModel: ViewModel() {
      * @param job 職種
      * @param joinedDate 入社日
      */
-    fun runSearch(name: String, status: String, area: String, job: String, joinedDate: String) {
+    fun runSearch(searchArray: Array<String>) {
         Log.d(TAG, "runSearch")
-        this.name = name
-        this.status = status
-        this.area = area
-        this.job = job
-        this.joinedDate = joinedDate
+        this.name = searchArray[0]
+        this.status = searchArray[1]
+        this.area = searchArray[2]
+        this.job = searchArray[3]
+        this.joinedDate = searchArray[4]
 
         // 名前(部分一致)、ステータス、エリア、職種、入社日でフィルタリング
         val filteredEmp: List<EmpData> = ArrayList(list.filter {

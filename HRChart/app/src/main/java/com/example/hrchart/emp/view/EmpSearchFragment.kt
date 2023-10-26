@@ -54,6 +54,7 @@ class EmpSearchFragment : BottomSheetDialogFragment() {
         // クリアボタン
         binding.empSearchClearButton.setOnClickListener {
             binding.empSearchNameEt.text.clear()
+            binding.empSearchJoinedEt.text.clear()
 
             // ドロップダウン初期化
             val statusDropdown : AutoCompleteTextView = binding.empSearchStatusDropdownItem
@@ -69,6 +70,7 @@ class EmpSearchFragment : BottomSheetDialogFragment() {
             statusDropdown.clearFocus()
             areasDropdown.clearFocus()
             jobsDropdown.clearFocus()
+            binding.empSearchJoinedEt.clearFocus()
         }
 
         // キャンセルボタン
