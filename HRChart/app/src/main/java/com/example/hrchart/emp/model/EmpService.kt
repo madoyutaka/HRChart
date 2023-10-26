@@ -1,5 +1,9 @@
-package com.example.hrchart.emp.data
+package com.example.hrchart.emp.model
 
+import com.example.hrchart.emp.data.Areas
+import com.example.hrchart.emp.data.EmpData
+import com.example.hrchart.emp.data.Jobs
+import com.example.hrchart.emp.data.Statuses
 import retrofit2.http.GET
 import retrofit2.http.Path
 

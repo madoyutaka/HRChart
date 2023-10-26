@@ -49,6 +49,9 @@ class EmpListAdapter(private val context: Context, private val empData: List<Emp
         holder.binding.empListAge.text = formattedAge
         // 職種
         holder.binding.empListJob.text = item.job
+        // 入社日
+            val formattedJoined = "入社日：${item.joinedDate}"
+        holder.binding.empListJoined.text = formattedJoined
 
         // クリックイベント処理用リスナー
         holder.itemView.setOnClickListener {

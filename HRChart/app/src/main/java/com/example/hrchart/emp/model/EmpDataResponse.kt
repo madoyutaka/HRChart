@@ -1,4 +1,6 @@
-package com.example.hrchart.emp.data
+package com.example.hrchart.emp.model
+
+import com.example.hrchart.emp.data.EmpData
 
 /**
  * 従業員データレスポンス用データクラス

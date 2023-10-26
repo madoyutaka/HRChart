@@ -53,38 +53,51 @@
 
         <!-- エリア -->
         <TextView
-            style="@style/Medium24"
+            style="@style/Medium20"
             android:id="@+id/emp_list_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_marginStart="@dimen/margin_16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emp_list_status"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@id/emp_list_joined"/>
 
         <!-- 年齢 -->
         <TextView
-            style="@style/Medium24"
+            style="@style/Medium20"
             android:id="@+id/emp_list_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:layout_marginVertical="@dimen/margin_8"
             app:layout_constraintEnd_toStartOf="@+id/emp_list_vertical_guideline"
             app:layout_constraintTop_toBottomOf="@+id/emp_list_status"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@id/emp_list_joined"/>
 
         <!-- 職種 -->
         <TextView
-            style="@style/Medium24"
+            style="@style/Medium20"
             android:id="@+id/emp_list_job"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin_16"
+            android:layout_marginVertical="@dimen/margin_8"
             android:layout_marginEnd="@dimen/margin_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emp_list_status"
+            app:layout_constraintBottom_toTopOf="@id/emp_list_joined"/>
+
+        <!-- 入社日 -->
+        <TextView
+            style="@style/Medium20"
+            android:id="@+id/emp_list_joined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emp_list_area"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

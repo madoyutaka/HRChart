@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.hrchart.common.Event
 import com.example.hrchart.emp.data.EmpData
-import com.example.hrchart.emp.data.EmpRepository
+import com.example.hrchart.emp.model.EmpRepository
 import kotlinx.coroutines.launch
 
 /**
@@ -35,6 +35,8 @@ class EmpListViewModel: ViewModel() {
     private var area: String = ""
     /** 職種 */
     private var job: String = ""
+    /** 入社日 */
+    private var joinedDate: String = ""
     /** 従業員リスト */
     private var list: List<EmpData> = emptyList()
     /** EmpRepository */
@@ -97,20 +99,23 @@ class EmpListViewModel: ViewModel() {
      * @param status ステータス
      * @param area エリア
      * @param job 職種
+     * @param joinedDate 入社日
      */
-    fun runSearch(name: String, status: String, area: String, job: String) {
+    fun runSearch(searchArray: Array<String>) {
         Log.d(TAG, "runSearch")
-        this.name = name
-        this.status = status
-        this.area = area
-        this.job = job
+        this.name = searchArray[0]
+        this.status = searchArray[1]
+        this.area = searchArray[2]
+        this.job = searchArray[3]
+        this.joinedDate = searchArray[4]
 
-        // 名前(部分一致)、ステータス、エリア、職種でフィルタリング
+        // 名前(部分一致)、ステータス、エリア、職種、入社日でフィルタリング
         val filteredEmp: List<EmpData> = ArrayList(list.filter {
             (this.name.isEmpty() || it.empName.contains(this.name)) &&
             (this.status.isEmpty() || ((this.status == "すべて")) || it.status == this.status) &&
             (this.area.isEmpty() || ((this.area == "すべて")) || it.area == this.area) &&
-            (this.job.isEmpty() || ((this.job == "すべて")) || it.job == this.job)
+            (this.job.isEmpty() || ((this.job == "すべて")) || it.job == this.job) &&
+            (this.joinedDate.isEmpty() || it.joinedDate == this.joinedDate)
         })
 
         // 見つかった場合は検索結果を表示

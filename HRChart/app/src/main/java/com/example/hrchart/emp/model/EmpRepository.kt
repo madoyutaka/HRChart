@@ -1,5 +1,9 @@
-package com.example.hrchart.emp.data
+package com.example.hrchart.emp.model
 
+import com.example.hrchart.emp.data.Areas
+import com.example.hrchart.emp.data.EmpData
+import com.example.hrchart.emp.data.Jobs
+import com.example.hrchart.emp.data.Statuses
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
