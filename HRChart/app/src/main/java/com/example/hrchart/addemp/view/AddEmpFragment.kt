@@ -1,10 +1,8 @@
-package com.example.hrchart.emp.view
-
+package com.example.hrchart.addemp.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -16,39 +14,40 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hrchart.R
-import com.example.hrchart.addemp.AddEmpActivity
 import com.example.hrchart.common.EventObserver
-import com.example.hrchart.databinding.FragmentEmpListBinding
+import com.example.hrchart.databinding.FragmentAddEmpBinding
 import com.example.hrchart.emp.EmpActivity
-import com.example.hrchart.emp.widget.EmpListAdapter
+import com.example.hrchart.emp.view.ConfirmLogoutDialogFragment
+import com.example.hrchart.emp.view.ConfirmLogoutDialogViewModel
 import com.example.hrchart.login.LoginActivity
 import com.example.hrchart.yearadoption.YearAdoptionActivity
 
 /**
- * 従業員一覧画面 Fragment
+ * 新規登録画面 Fragment
  * 画面ID:
  *
  * @author K.Takahashi
- * created on 2023/10/06
+ * created on 2023/10/27
  */
-class EmpListFragment : Fragment() {
+class AddEmpFragment : Fragment() {
 
     companion object {
         /** TAG */
-        private const val TAG = "EmpListFragment"
+        private const val TAG = "AddEmpFragment"
     }
 
     /** viewModel */
-    private val viewModel: EmpListViewModel by viewModels()
+    private val viewModel: AddEmpViewModel by viewModels()
+
     /** binding */
-    private lateinit var binding: FragmentEmpListBinding
+    private lateinit var binding: FragmentAddEmpBinding
+
     /** loginType */
     private var loginType: String? = null
 
@@ -62,7 +61,7 @@ class EmpListFragment : Fragment() {
     ): View {
         Log.d(TAG, "onCreateView Start")
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_emp_list, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_emp, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -83,8 +82,17 @@ class EmpListFragment : Fragment() {
         // observe処理
         viewModelObservers()
 
+        // フッターアイコンからの遷移(従業員一覧画面)
+        binding.addEmpFooterListButton.setOnClickListener {
+            // YearAdoptionActivityへ遷移
+            val intent = Intent(context, EmpActivity::class.java)
+            // loginTypeを渡す
+            intent.putExtra("loginType", loginType)
+            startActivity(intent)
+        }
+
         // フッターアイコンからの遷移(年間採用一覧画面)
-        binding.empListFooterRecruitButton.setOnClickListener {
+        binding.addEmpFooterRecruitButton.setOnClickListener {
             // YearAdoptionActivityへ遷移
             val intent = Intent(context, YearAdoptionActivity::class.java)
             // loginTypeを渡す
@@ -92,21 +100,8 @@ class EmpListFragment : Fragment() {
             startActivity(intent)
         }
 
-        // フッターアイコンからの遷移(新規登録画面)
-        binding.empListFooterAddEmpButton.setOnClickListener {
-            // AddEmpActivityへ遷移
-            val intent = Intent(context, AddEmpActivity::class.java)
-            // loginTypeを渡す
-            intent.putExtra("loginType", loginType)
-            startActivity(intent)
-        }
-
         Log.d(TAG, "onCreateView End")
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     /**
@@ -137,8 +132,6 @@ class EmpListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume Start")
-        // 遷移先から戻ってきた時にRecyclerViewをセットする
-        viewModel.setEmpList()
         Log.d(TAG, "onResume End")
     }
 
@@ -172,60 +165,6 @@ class EmpListFragment : Fragment() {
      */
     private fun viewModelObservers() {
 
-        // RecyclerView表示処理(observe)
-        viewModel.getEmpList().observe(viewLifecycleOwner, EventObserver {
-            Log.d(TAG, "getEmpList")
-            // RecyclerViewのサイズは固定
-            binding.empListRecyclerView.setHasFixedSize(true)
-            binding.empListRecyclerView.adapter = EmpListAdapter(requireContext(), it, object : EmpListAdapter.OnItemClickListener {
-                override fun onItemClick(id: Int) {
-                    viewModel.listToInfo(id)
-                }
-            })
-            binding.empListRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            // リストの境界線
-            val itemDecoration = DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL)
-            binding.empListRecyclerView.addItemDecoration(itemDecoration)
-        })
-
-        // 検索ボタンのobserve
-        viewModel.getOnClickSearch().observe(viewLifecycleOwner, EventObserver {
-            Log.d(TAG, "getOnSearch")
-            if (it) {
-                // 検索画面を表示する
-                val empSearchFragment = EmpSearchFragment()
-                empSearchFragment.show(parentFragmentManager, "EmpSearchFragment")
-            }
-        })
-
-        // 検索画面のobserve
-        val searchViewModel: EmpSearchViewModel by activityViewModels()
-        searchViewModel.getOnSearchArray().observe(viewLifecycleOwner, EventObserver {
-            Log.d(TAG, "getOnSearchArray")
-            // 検索条件をViewModelに渡す
-            viewModel.runSearch(it)
-        })
-        // 検索結果0件ダイアログの表示
-        viewModel.getShowErrorSearchFilter().observe(viewLifecycleOwner, EventObserver {
-            Log.d(TAG, "getShowErrorSearchFilter")
-            if (it) {
-                // 検索結果が見つからないダイアログを表示する
-                val errorSearchFilterDialogFragment = ErrorSearchFilterDialogFragment()
-                errorSearchFilterDialogFragment.show(parentFragmentManager, "ErrorSearchFilterDialogFragment")
-            }
-        })
-
-        // 検索結果0件ダイアログのobserve
-        val errorSearchFilterDialogViewModel: ErrorSearchFilterDialogViewModel by activityViewModels()
-        errorSearchFilterDialogViewModel.getOnClickPositive().observe(viewLifecycleOwner, EventObserver {
-            Log.d(TAG, "getOnClickPositive")
-            if (it) {
-                // 検索画面を表示する
-                val empSearchFragment = EmpSearchFragment()
-                empSearchFragment.show(parentFragmentManager, "EmpSearchFragment")
-            }
-        })
-
         // ログアウトダイアログのobserve
         val confirmLogoutDialogViewModel: ConfirmLogoutDialogViewModel by activityViewModels()
         confirmLogoutDialogViewModel.getOnClickPositive().observe(viewLifecycleOwner, EventObserver {
@@ -250,15 +189,11 @@ class EmpListFragment : Fragment() {
     private fun setFooterIcon() {
         Log.d(TAG, "setFooterIcon")
         val recruitDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_calendar_gray)
-        binding.empListFooterRecruitButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
-        binding.empListFooterRecruitButton.setCompoundDrawablesWithIntrinsicBounds(null, recruitDrawable, null, null)
+        binding.addEmpFooterRecruitButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+        binding.addEmpFooterRecruitButton.setCompoundDrawablesWithIntrinsicBounds(null, recruitDrawable, null, null)
 
-        // 人事パスワードでログインした場合
-        if(loginType == "admin") {
-            binding.empListFooterAddEmpButton.visibility = View.VISIBLE
-            val addDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_add_gray)
-            binding.empListFooterAddEmpButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
-            binding.empListFooterAddEmpButton.setCompoundDrawablesWithIntrinsicBounds(null, addDrawable, null, null)
-        }
+        val listDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_list_gray)
+        binding.addEmpFooterListButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+        binding.addEmpFooterListButton.setCompoundDrawablesWithIntrinsicBounds(null, listDrawable, null, null)
     }
 }

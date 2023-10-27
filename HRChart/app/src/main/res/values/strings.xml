@@ -5,6 +5,7 @@
     <string name="employee_list">従業員一覧</string>
     <string name="employee_info">従業員情報</string>
     <string name="recruitment_list">年間採用一覧</string>
+    <string name="select_year">年度選択</string>
     <string name="add_emp">新規登録</string>
     <string name="ok">OK</string>
     <string name="cancel">キャンセル</string>
@@ -58,4 +59,10 @@
     <string name="hr_chat_title">人事カルテシステム</string>
     <string name="login_btn">ログイン</string>
     <string name="password">パスワード</string>
+
+    <!--  年間採用一覧関連  -->
+    <string name="year_adoption_2024">2024年度</string>
+    <string name="year_adoption_2023">2023年度</string>
+    <string name="year_adoption_2022">2022年度</string>
+
 </resources>
