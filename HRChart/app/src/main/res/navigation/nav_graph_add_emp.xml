@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_add_emp"
+    app:startDestination="@id/add_emp_fragment">
+
+    <!-- 新規登録画面 -->
+    <fragment
+        android:id="@+id/add_emp_fragment"
+        android:name="com.example.hrchart.addemp.view.AddEmpFragment"
+        android:label="@string/add_emp"
+        tools:layout="@layout/fragment_add_emp">
+    </fragment>
+
+</navigation>

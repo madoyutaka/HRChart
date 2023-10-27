@@ -1,55 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
             name="viewModel"
-            type="com.example.hrchart.emp.view.EmpListViewModel" />
+            type="com.example.hrchart.yearadoption.view.YearAdoptionSelectYearViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/emp_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".emp.view.EmpListFragment">
+        tools:context=".yearadoption.view.YearAdoptionSelectYearFragment">
 
-        <!-- 従業員リスト -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/emp_list_recyclerView"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:scrollbars="vertical"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/emp_list_divider"/>
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/padding_16"
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <!-- 検索ボタン -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/emp_list_search_button"
-            android:layout_width="wrap_content"
+        <!-- 2024年度 -->
+        <Button
+            style="@style/WhiteText"
+            android:id="@+id/year_adoption_to_2024"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_16"
-            android:onClick="@{() -> viewModel.onClickSearchButton()}"
-            app:srcCompat="@drawable/search_white_24"
-            app:tint="@color/white"
-            app:backgroundTint="@color/bright_cyan"
-            app:layout_constraintBottom_toTopOf="@id/emp_list_footer"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="ContentDescription" />
+            android:text="@string/year_adoption_2024" />
+
+        <!-- 2023年度 -->
+        <Button
+            style="@style/WhiteText"
+            android:id="@+id/year_adoption_to_2023"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/year_adoption_2023" />
+
+        <!-- 2022年度 -->
+        <Button
+            style="@style/WhiteText"
+            android:id="@+id/year_adoption_to_2022"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/year_adoption_2022" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <!-- 境界線 -->
         <View
-            android:id="@+id/emp_list_divider"
+            android:id="@+id/year_adoption_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             android:background="@color/gray"
-            app:layout_constraintBottom_toTopOf="@id/emp_list_footer"/>
+            app:layout_constraintBottom_toTopOf="@id/year_adoption_footer"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/emp_list_footer"
+            android:id="@+id/year_adoption_footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/light_gray"
@@ -59,7 +68,7 @@
 
             <!-- 従業員一覧ボタン -->
             <Button
-                android:id="@+id/emp_list_footer_list_button"
+                android:id="@+id/year_adoption_footer_list_button"
                 style="@style/FooterButtonText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -71,7 +80,7 @@
 
             <!-- 年間採用一覧ボタン -->
             <Button
-                android:id="@+id/emp_list_footer_recruit_button"
+                android:id="@+id/year_adoption_footer_recruit_button"
                 style="@style/FooterButtonText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -83,7 +92,7 @@
 
             <!-- 新規登録ボタン -->
             <Button
-                android:id="@+id/emp_list_footer_add_emp_button"
+                android:id="@+id/year_adoption_footer_add_emp_button"
                 style="@style/FooterButtonText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
