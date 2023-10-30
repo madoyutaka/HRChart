@@ -26,7 +26,6 @@ import com.example.hrchart.R
 import com.example.hrchart.addemp.AddEmpActivity
 import com.example.hrchart.common.EventObserver
 import com.example.hrchart.databinding.FragmentEmpListBinding
-import com.example.hrchart.emp.EmpActivity
 import com.example.hrchart.emp.widget.EmpListAdapter
 import com.example.hrchart.login.LoginActivity
 import com.example.hrchart.yearadoption.YearAdoptionActivity
@@ -51,6 +50,8 @@ class EmpListFragment : Fragment() {
     private lateinit var binding: FragmentEmpListBinding
     /** loginType */
     private var loginType: String? = null
+    /** 入社日のソート(昇順/降順)フラグ */
+    private var isAscendingJoinDate: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +100,26 @@ class EmpListFragment : Fragment() {
             // loginTypeを渡す
             intent.putExtra("loginType", loginType)
             startActivity(intent)
+        }
+
+        // 入社日 ソートボタン
+        binding.empListHeaderSortJoinedDateButton.setOnClickListener {
+            // 昇順/降順をトグルする
+            isAscendingJoinDate = !isAscendingJoinDate
+            // 昇順/降順アイコンを表示
+            val btnIconId = if(isAscendingJoinDate) R.drawable.ic_arrow_upward else R.drawable.ic_arrow_downward
+            val btnIcon = ContextCompat.getDrawable(requireContext(), btnIconId)
+            binding.empListHeaderSortJoinedDateButton.setCompoundDrawablesWithIntrinsicBounds(null, null ,btnIcon, null)
+            viewModel.sortByJoinedDate(isAscendingJoinDate)
+        }
+
+        // クリアボタン
+        binding.empListHeaderClearButton.setOnClickListener {
+            // 昇順/降順フラグを初期値(false)にする
+            isAscendingJoinDate = false
+            viewModel.clearSort()
+            // 入社日ソートボタンの昇順/降順アイコンを非表示にする
+            binding.empListHeaderSortJoinedDateButton.setCompoundDrawablesWithIntrinsicBounds(null, null ,null, null)
         }
 
         Log.d(TAG, "onCreateView End")

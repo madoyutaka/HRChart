@@ -41,6 +41,10 @@ class EmpListViewModel: ViewModel() {
     private var list: List<EmpData> = emptyList()
     /** EmpRepository */
     private val empRepository: EmpRepository = EmpRepository()
+    /** ソートした従業員リスト */
+    private var sortList: List<EmpData> = emptyList()
+    /** 入社日のソート(昇順/降順)フラグ */
+    private var isAscendingJoinDate: Boolean = false
 
     /** 従業員リスト(LiveData) */
     private var empData = MutableLiveData<Event<List<EmpData>>>()
@@ -120,11 +124,36 @@ class EmpListViewModel: ViewModel() {
 
         // 見つかった場合は検索結果を表示
         if(filteredEmp.isNotEmpty()) {
-            empData.postValue(Event(filteredEmp))
+            list = filteredEmp
+            empData.postValue(Event(list))
         } else {
             // 見つからない場合はエラーダイアログ表示
             showErrorSearchFilter.postValue(Event(true))
         }
+    }
+
+    /**
+     * sortByJoinedDate
+     * 入社日を昇順/降順でソートする
+     */
+    fun sortByJoinedDate(isAscending: Boolean){
+        Log.d(TAG, "sortByJoinedDate")
+        this.isAscendingJoinDate = isAscending
+        list = if (isAscendingJoinDate) {
+            list.sortedBy { it.joinedDate }
+        } else {
+            list.sortedByDescending { it.joinedDate }
+        }
+        empData.postValue(Event(list))
+    }
+
+    /**
+     * clearSort
+     * ソートされたリストを元の状態(ID順)に戻す
+     */
+    fun clearSort(){
+        Log.d(TAG, "clearSort")
+        setEmpList()
     }
 
     /**
