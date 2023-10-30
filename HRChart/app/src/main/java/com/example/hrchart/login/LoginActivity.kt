@@ -1,5 +1,6 @@
 package com.example.hrchart.login
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.hrchart.R
@@ -18,6 +19,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        // アクションバー設定
+        supportActionBar?.title = getString(R.string.login_title)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.light_gray)))
+        
         val loginFragment = LoginFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.container, loginFragment)
