@@ -4,6 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.hrchart.login.model.LoginRepository
+import kotlinx.coroutines.launch
 
 /**
  *  ログイン画面 ViewModel
@@ -17,6 +20,21 @@ class LoginViewModel : ViewModel() {
     companion object {
         /** TAG */
         private const val TAG = "LoginViewModel"
+    }
+
+    /** LoginRepository */
+    private val loginRepository: LoginRepository = LoginRepository()
+
+    /** PasswordList */
+    private val passwordList: MutableList<String> = mutableListOf()
+
+    /**
+     * init
+     */
+    init {
+        Log.d(TAG, "init")
+        // DB内のデータ取得
+        getPasswordList()
     }
 
     // パスワード入力の検知
@@ -51,26 +69,39 @@ class LoginViewModel : ViewModel() {
         // パスワードの正規表現
         val regex = Regex(pattern = "[a-z0-9!@;:]{6,}")
         val isMatched = regex.containsMatchIn(inputPassword)
-        return if (!isMatched) {
+        if (!isMatched) {
             "noMatch"
-        } else {
-            passwordVerify(inputPassword)
         }
+        return passwordVerify(inputPassword)
+    }
 
+    //サーバーからデータ取得
+    private fun getPasswordList(){
+        viewModelScope.launch {
+            try {
+                Log.d(TAG, "getPasswordList")
+                // デシリアライズしたJsonデータを取得
+                val passwordData = loginRepository.getLoginPasswordData()
+                passwordList.add(passwordData.general)
+                passwordList.add(passwordData.admin)
+                Log.d(TAG, "$passwordList")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     // パスワード確認
     private fun passwordVerify(inputPassword: String): String {
-        // テストデータ用のパスワード(DBから取得予定)
-        val userPassword = "gwuser"
-        val adminPassword = "adminuser"
-
-        return when (inputPassword) {
-            userPassword -> {
+        Log.d(TAG, "passwordVerify")
+        val generalPasswordData = passwordList[0]
+        val adminPasswordData = passwordList[1]
+        val loginType = when (inputPassword) {
+            generalPasswordData -> {
                 "user"
             }
 
-            adminPassword -> {
+            adminPasswordData -> {
                 "admin"
             }
 
@@ -78,5 +109,7 @@ class LoginViewModel : ViewModel() {
                 "error"
             }
         }
+        Log.d(TAG,"$loginType")
+        return loginType
     }
 }
