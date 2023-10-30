@@ -13,6 +13,7 @@
     <string name="no">いいえ</string>
     <string name="search">検索</string>
     <string name="all">すべて</string>
+    <string name="clear">クリア</string>
 
     <!--  従業員情報関連  -->
     <string name="emp_name">名前</string>
