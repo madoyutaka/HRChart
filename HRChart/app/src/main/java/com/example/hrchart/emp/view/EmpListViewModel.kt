@@ -99,11 +99,7 @@ class EmpListViewModel: ViewModel() {
     /**
      * runSearch
      * 検索条件に応じたデータを検索して表示する
-     * @param name 名前
-     * @param status ステータス
-     * @param area エリア
-     * @param job 職種
-     * @param joinedDate 入社日
+     * @param searchArray 検索条件の配列
      */
     fun runSearch(searchArray: Array<String>) {
         Log.d(TAG, "runSearch")
@@ -165,6 +161,18 @@ class EmpListViewModel: ViewModel() {
         Log.d(TAG, "listToInfo")
         this.id = id
         val action = EmpListFragmentDirections.actionEmpListToEmpInfo(id)
+        navController.navigate(action)
+    }
+
+    /**
+     * listToMemo
+     * 面談メモ画面へ遷移
+     * @param id 選択した従業員のID
+     */
+    fun listToMemo(id: Int) {
+        Log.d(TAG, "listToInfo")
+        this.id = id
+        val action = EmpListFragmentDirections.actionEmpListToInterviewMemo(id)
         navController.navigate(action)
     }
 

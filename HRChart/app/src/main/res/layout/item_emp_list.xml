@@ -40,6 +40,7 @@
 
         <!-- 面談メモ -->
         <ImageButton
+            android:id="@+id/emp_list_memo_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
