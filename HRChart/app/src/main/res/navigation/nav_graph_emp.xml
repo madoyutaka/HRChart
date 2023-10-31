@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/interview_memo_fragment"
         android:name="com.example.hrchart.emp.view.InterviewMemoFragment"
-        android:label="@string/employee_info"
+        android:label="@string/interview_memo"
         tools:layout="@layout/fragment_interview_memo">
         <!-- 従業員一覧画面へ遷移 -->
         <action

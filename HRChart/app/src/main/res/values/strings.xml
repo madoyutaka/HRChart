@@ -14,6 +14,7 @@
     <string name="search">検索</string>
     <string name="all">すべて</string>
     <string name="clear">クリア</string>
+    <string name="interview_memo">面談メモ</string>
 
     <!--  従業員情報関連  -->
     <string name="emp_name">名前</string>
