@@ -37,7 +37,8 @@ class LoginFragment : Fragment() {
     }
 
     /** binding */
-    private lateinit var binding: FragmentLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     /** viewModel */
     private lateinit var viewModel: LoginViewModel
@@ -54,7 +55,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         Log.d(TAG, "onCreateView Start")
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -143,33 +144,12 @@ class LoginFragment : Fragment() {
         imm.hideSoftInputFromWindow(binding.root.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume Start")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "onPause Start")
-        Log.d(TAG, "onPause End")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "onStop Start")
-        Log.d(TAG, "onStop End")
-    }
-
     override fun onDestroyView() {
-        super.onDestroyView()
         Log.d(TAG, "onDestroyView Start")
+        super.onDestroyView()
+        // メモリ解放
+        _binding = null
         Log.d(TAG, "onDestroyView End")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy Start")
-        Log.d(TAG, "onDestroy End")
     }
 
 }
