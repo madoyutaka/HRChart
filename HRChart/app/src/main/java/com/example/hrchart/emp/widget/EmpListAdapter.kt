@@ -53,9 +53,14 @@ class EmpListAdapter(private val context: Context, private val empData: List<Emp
             val formattedJoined = "入社日：${item.joinedDate}"
         holder.binding.empListJoined.text = formattedJoined
 
-        // クリックイベント処理用リスナー
+        // クリックイベント処理用リスナー(セル)
         holder.itemView.setOnClickListener {
             listener.onItemClick(item.id)
+        }
+
+        // クリックイベント処理用リスナー(面談メモアイコン)
+        holder.binding.empListMemoButton.setOnClickListener{
+            listener.onMemoIconClick(item.id)
         }
     }
 
@@ -64,6 +69,7 @@ class EmpListAdapter(private val context: Context, private val empData: List<Emp
      */
     interface OnItemClickListener {
         fun onItemClick(id: Int)
+        fun onMemoIconClick(id: Int)
     }
 
     override fun getItemCount(): Int {

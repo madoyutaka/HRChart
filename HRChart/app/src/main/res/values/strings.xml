@@ -66,4 +66,7 @@
     <string name="year_adoption_2023">2023年度</string>
     <string name="year_adoption_2022">2022年度</string>
 
+    <!-- test -->
+    <string name="interview_memo_text">ID：%1$s の面談メモです</string>
+
 </resources>

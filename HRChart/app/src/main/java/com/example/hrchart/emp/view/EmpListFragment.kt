@@ -185,8 +185,15 @@ class EmpListFragment : Fragment() {
             // RecyclerViewのサイズは固定
             binding.empListRecyclerView.setHasFixedSize(true)
             binding.empListRecyclerView.adapter = EmpListAdapter(requireContext(), it, object : EmpListAdapter.OnItemClickListener {
+                // リストのセル押下時
                 override fun onItemClick(id: Int) {
+                    // 従業員情報画面へ遷移
                     viewModel.listToInfo(id)
+                }
+                // リストの面談メモアイコン押下時
+                override fun onMemoIconClick(id: Int) {
+                    // 面談メモ画面へ遷移
+                    viewModel.listToMemo(id)
                 }
             })
             binding.empListRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
