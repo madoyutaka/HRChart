@@ -35,7 +35,8 @@ class EmpInfoFragment : Fragment() {
     /** viewModel */
     private lateinit var viewModel: EmpInfoViewModel
     /** binding */
-    private lateinit var binding: FragmentEmpInfoBinding
+    private var _binding: FragmentEmpInfoBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +47,7 @@ class EmpInfoFragment : Fragment() {
         savedInstanceState: Bundle?): View {
         Log.d(TAG, "onCreateView Start")
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_emp_info, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_emp_info, container, false)
         viewModel = ViewModelProvider(this)[EmpInfoViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -66,6 +67,14 @@ class EmpInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onDestroyView() {
+        Log.d(TAG, "onDestroyView Start")
+        super.onDestroyView()
+        // メモリ解放
+        _binding = null
+        Log.d(TAG, "onDestroyView End")
     }
 
     /**

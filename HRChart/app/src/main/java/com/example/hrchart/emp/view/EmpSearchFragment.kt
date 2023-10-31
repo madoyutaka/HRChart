@@ -40,14 +40,15 @@ class EmpSearchFragment : BottomSheetDialogFragment() {
     /** viewModel */
     private val viewModel: EmpSearchViewModel by activityViewModels()
     /** binding */
-    private lateinit var binding: FragmentEmpSearchBinding
+    private var _binding: FragmentEmpSearchBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         Log.d(TAG, "onCreateView Start")
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_emp_search, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_emp_search, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = requireActivity()
 
@@ -153,6 +154,14 @@ class EmpSearchFragment : BottomSheetDialogFragment() {
         val jobsDropdown : AutoCompleteTextView = binding.empSearchJobDropdownItem
         initDropdown(statusDropdown, areasDropdown, jobsDropdown)
         Log.d(TAG, "onResume End")
+    }
+
+    override fun onDestroyView() {
+        Log.d(TAG, "onDestroyView Start")
+        super.onDestroyView()
+        // メモリ解放
+        _binding = null
+        Log.d(TAG, "onDestroyView End")
     }
 
     /**

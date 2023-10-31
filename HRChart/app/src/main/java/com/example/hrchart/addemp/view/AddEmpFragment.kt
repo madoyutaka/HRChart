@@ -46,7 +46,8 @@ class AddEmpFragment : Fragment() {
     private val viewModel: AddEmpViewModel by viewModels()
 
     /** binding */
-    private lateinit var binding: FragmentAddEmpBinding
+    private var _binding: FragmentAddEmpBinding? = null
+    private val binding get() = _binding!!
 
     /** loginType */
     private var loginType: String? = null
@@ -61,7 +62,7 @@ class AddEmpFragment : Fragment() {
     ): View {
         Log.d(TAG, "onCreateView Start")
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_emp, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_emp, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -129,34 +130,12 @@ class AddEmpFragment : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume Start")
-        Log.d(TAG, "onResume End")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "onPause Start")
-        Log.d(TAG, "onPause End")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "onStop Start")
-        Log.d(TAG, "onStop End")
-    }
-
     override fun onDestroyView() {
-        super.onDestroyView()
         Log.d(TAG, "onDestroyView Start")
+        super.onDestroyView()
+        // メモリ解放
+        _binding = null
         Log.d(TAG, "onDestroyView End")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy Start")
-        Log.d(TAG, "onDestroy End")
     }
 
     /**
